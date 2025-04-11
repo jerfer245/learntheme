@@ -6,6 +6,40 @@
  * @package LearnTheme
  */
 
+function theme_setup()
+{
+    add_theme_support('title-tag');
+
+    add_theme_support('custom-logo', [
+        'header-text'          => ['site-title', 'site-description'],
+        'height'               => 100,
+        'width'                => 400,
+        'flex-height'          => true,
+        'flex-width'           => true,
+        'unlink-homepage-logo' => true,
+    ]);
+
+    add_theme_support('post-thumbnails');
+    add_theme_support('customize-selective-refresh-widgets');
+    add_theme_support('automatic-feed-links');
+
+    add_theme_support('html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        'script',
+        'style',
+    ]);
+
+    add_editor_style();
+    add_theme_support('wp_block_styles');
+    add_theme_support('align-wide');
+}
+add_action('after_setup_theme', 'theme_setup');
+
+
 function learntheme()
 {
     //Register Style
@@ -25,3 +59,14 @@ function learntheme()
     wp_enqueue_script('bootstrap-js');
 }
 add_action('wp_enqueue_scripts', 'learntheme');
+
+function Nav()
+{
+    register_nav_menus(
+        array(
+            'header-menu' => __('Header Menu'),
+            'extra-menu' => __('Extra Menu')
+        )
+    );
+}
+add_action('init', 'Nav');
